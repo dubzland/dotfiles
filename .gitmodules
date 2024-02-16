@@ -1,0 +1,9 @@
+[submodule "base16-xresources"]
+	path = i3/.local/share/base16-xresources
+	url = https://github.com/tinted-theming/base16-xresources
+[submodule "base16-i3"]
+	path = i3/.local/share/base16-i3
+	url = https://github.com/tinted-theming/base16-i3
+[submodule "base16-shell"]
+	path = core/.local/share/base16-shell
+	url = https://github.com/tinted-theming/base16-shell

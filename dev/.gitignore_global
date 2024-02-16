@@ -1,0 +1,9 @@
+# Swap Files #
+##############
+*.sw*
+*.un*
+*.DS_Store
+vendor/bundle
+coverage/*
+.rspec
+.dalias
