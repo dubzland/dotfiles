@@ -5,5 +5,5 @@
 	path = i3/.local/share/base16-i3
 	url = https://github.com/tinted-theming/base16-i3
 [submodule "i3/.local/share/base16-shell"]
-	path = i3/.local/share/base16-shell
+	path = core/.local/share/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
