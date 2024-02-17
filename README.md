@@ -26,10 +26,17 @@ environment.
 | [nvim][nvim] | Neovim configuration suitable for either general purpose work, or dev. |
 | [dev][dev]   | Shell and tool configuration for various development environments.     |
 
-### Additional repos
+"Installing" a module is simply a matter of symlinking its contents into the
+`$HOME` directory. The easiest way to accomplish this is using [Gno
+Stow](https://www.gnu.org/software/stow/):
 
-- [dotfiles.dev](https://git.dubzland.net/jdubz/dotfiles.dev)
-- [dotfiles.x11](https://git.dubzland.net/jdubz/dotfiles.x11)
+```sh
+cd $HOME/.dotfiles
+stow <module>
+```
+
+Stow will complain if there are existing files present, which is a good thing
+because nuking important configuration is never a good thing.
 
 ### License
 
