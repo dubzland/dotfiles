@@ -30,9 +30,9 @@ environment.
 `$HOME` directory. The easiest way to accomplish this is using [Gno
 Stow](https://www.gnu.org/software/stow/):
 
-```sh
-cd $HOME/.dotfiles
-stow <module>
+```console
+$ cd $HOME/.dotfiles
+$ stow <module>
 ```
 
 Stow will complain if there are existing files present, which is a good thing
