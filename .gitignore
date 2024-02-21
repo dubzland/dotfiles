@@ -1,2 +1,4 @@
 *.un~
 .prime_install.log
+i3/.config/i3/config
+i3/.config/i3/config.font

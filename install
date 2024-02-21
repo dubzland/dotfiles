@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+DOTFILES=${DOTFILES:-$HOME/.dotfiles}
+MODULES=${MODULES:-core}
+
+if [[ ! -d "$DOTFILES" ]]; then
+	printf "Dotfile directory does not exist: '%s'\n" $DOTFILES >&2
+	exit 1
+fi
+
+IFS=',' read -r -a modules <<< "${MODULES}"
+
+pushd "$DOTFILES"
+
+for module in "${modules[@]}"; do
+	printf "Stowing: ${module}\n"
+	stow -R ${module}
+done
+
+popd
