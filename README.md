@@ -66,11 +66,8 @@ xterm), as well as configuration for `i3` itself and `i3status`.
 #### setup
 
 ```console
-# Set i3 font
-$ cp $HOME/.config/i3/config.font.example $HOME/.config/i3/config.font
-
-# Set i3 theme
-$ ln -sf $HOME/.local/share/base16-i3/themes/${THEME} $HOME/.config/i3/config.theme
+# Set font sizes in .Xresources
+$ cp $HOME/.Xresources.d/font-sizes.example $HOME/.Xresources.d/font-sizes
 
 # Link autostarts
 $ ln -sf /usr/share/applications/barrier.desktop $HOME/.config/autostart/

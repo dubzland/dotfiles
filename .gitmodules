@@ -1,15 +1,12 @@
-[submodule "i3/.local/share/base16-xresources"]
-	path = i3/.local/share/base16-xresources
-	url = https://github.com/tinted-theming/base16-xresources
-[submodule "i3/.local/share/base16-i3"]
-	path = i3/.local/share/base16-i3
-	url = https://github.com/tinted-theming/base16-i3
-[submodule "i3/.local/share/base16-shell"]
-	path = core/.local/share/base16-shell
-	url = https://github.com/tinted-theming/base16-shell
 [submodule "core/.vim/autoload/plug.vim"]
 	path = core/.vim/autoload/plug.vim
 	url = https://github.com/junegunn/vim-plug
 [submodule "core/.local/share/vim/plugged/vim-plug"]
 	path = core/.local/share/vim/plugged/vim-plug
 	url = https://github.com/junegunn/vim-plug
+[submodule "i3/.local/share/base16-xresources"]
+	path = i3/.local/share/base16-xresources
+	url = https://github.com/tinted-theming/base16-xresources
+[submodule "core/.local/share/base16-shell"]
+	path = core/.local/share/base16-shell
+	url = https://github.com/tinted-theming/base16-shell
