@@ -1,5 +1,6 @@
 *.un~
 .prime_install.log
 core/.vim/.netrwhist
+core/.local/share/vim/site/**/*
 i3/.config/i3/config
 i3/.config/i3/config.font
