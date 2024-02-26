@@ -1,6 +1,3 @@
-[submodule "core/.vim/autoload/plug.vim"]
-	path = core/.vim/autoload/plug.vim
-	url = https://github.com/junegunn/vim-plug
 [submodule "core/.local/share/vim/plugged/vim-plug"]
 	path = core/.local/share/vim/plugged/vim-plug
 	url = https://github.com/junegunn/vim-plug
