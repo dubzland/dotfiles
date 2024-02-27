@@ -2,5 +2,6 @@
 .prime_install.log
 core/.vim/.netrwhist
 core/.local/share/vim/site/**/*
+core/.local/share/vim/undodir/**/*
 i3/.config/i3/config
 i3/.config/i3/config.font
