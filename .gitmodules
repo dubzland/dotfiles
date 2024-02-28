@@ -7,3 +7,6 @@
 [submodule "core/.local/share/base16-shell"]
 	path = core/.local/share/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
+[submodule "core/.local/share/base16-alacritty"]
+	path = core/.local/share/base16-alacritty
+	url = https://github.com/aarowill/base16-alacritty
