@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
-DOTFILES=${DOTFILES:-$HOME/.dotfiles}
-MODULES=${MODULES:-core}
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
-if [[ ! -d "$DOTFILES" ]]; then
-	printf "Dotfile directory does not exist: '%s'\n" $DOTFILES >&2
-	exit 1
-fi
+declare -A AVAILABLE_MODULES
+AVAILABLE_MODULES=()
 
-IFS=',' read -r -a modules <<< "${MODULES}"
+declare -a INSTALL_MODULES
+INSTALL_MODULES=()
 
-pushd "$DOTFILES"
-
-for module in "${modules[@]}"; do
-	printf "Stowing: ${module}\n"
-	stow -R ${module}
+for d in $DOTFILES_DIR/*/; do
+	AVAILABLE_MODULES[$(basename "${d}")]="$d"
 done
 
-popd
+for a in "$@"; do
+	if printf '%s\0' "${!AVAILABLE_MODULES[@]}" | grep -qwz $a; then
+		INSTALL_MODULES+=("$a")
+	else
+		printf "Invalid module: %s\n" "$a" >&2
+		exit 1
+	fi
+done
+
+for module in "${INSTALL_MODULES[@]}"; do
+	${AVAILABLE_MODULES[$module]}/install
+done
