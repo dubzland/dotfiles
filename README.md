@@ -1,6 +1,14 @@
-# Very Lame Dotfiles [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Dotfiles
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-These are bad, and extremely opinionated. Use at your own peril.
+My personal dotfiles.  Highly opinionated.  Totally awesome.
+
+## Description
+
+Primary workstation is a Core-i9 running Gentoo Linux, with the [i3][i3] window
+manager running xterm (yes, [xterm][xterm]). On MacOS, [alacritty][alacritty]
+replaces xterm.  Colorscheme is synchronized across bash, alacritty, i3, xterm
+and vim/neovim by [base16][base16] themes.
 
 ## Prerequisites
 
@@ -32,15 +40,17 @@ environment.
 ### core
 
 Handles the bulk of the `bash` configuration (via drop-in directories), and sets
-up `tmux`. Also includes configuration for [alacritty](https://alacritty.org/)
-(primarily for MacOS).
+up `tmux`. Also includes configuration for [alacritty][alacritty] (primarily for
+MacOS).
 
 #### Prerequisites
 
-- tmux (optional)
-- alacritty (optional)
+- tmux
+- alacritty (MaxOS only)
+- fzf
+- ripgrep
 
-On MacOS, install Alacritty per the [docs][alacritty], then:
+On MacOS, install Alacritty per the [docs][alacritty-install], then:
 
 ```console
 $ curl -o ~/alacritty.info https://github.com/alacritty/alacritty/blob/master/extra/alacritty.info
@@ -57,6 +67,9 @@ xterm), as well as configuration for `i3` itself and `i3status`.
 
 - i3 & i3status
 - xterm
+- rofi
+- pianobar
+- dunst (for notifications)
 - dex (for desktop autostart)
 - feh (for wallpaper)
 - parcellite (for clipboard history)
@@ -77,7 +90,7 @@ $ ln -sf /usr/share/applications/xscreensaver.desktop $HOME/.config/autostart/
 
 ### nvim
 
-Full development oriented [Neovim](https://neovim.io/) configuration.
+Full development oriented [Neovim][neovim] configuration.
 
 #### Prerequisites
 
@@ -87,7 +100,7 @@ Full development oriented [Neovim](https://neovim.io/) configuration.
 
 - Bash configuration for various programming languages and cli tools
 - Local git configuration
-- [asdf](https://asdf-vm.com/) setup
+- [asdf][asdf] setup
 
 #### asdf installation and finalization:
 
@@ -112,4 +125,10 @@ $ asdf install
 
 [MIT](LICENSE)
 
-[alacritty]: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
+[asdf]: https://asdf-vm.com/
+[i3]: https://i3wm.org/
+[neovim]: https://neovim.io/
+[xterm]: https://invisible-island.net/xterm/
+[base16]: https://github.com/tinted-theming
+[alacritty]: https://alacritty.org/
+[alacritty-install]: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
