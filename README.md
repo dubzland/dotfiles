@@ -19,9 +19,9 @@ and vim/neovim by [base16][base16] themes.
 
 For a full installation, just clone the directory and use the `install` script:
 
-```console
-$ git clone --recurse-submodules git@git.dubzland.com:dubzland/dotfiles.git $HOME/.dotfiles
-$ MODULES=core,dev,i3,nvim $HOME/.dotfiles/install
+```bash
+git clone --recurse-submodules git@git.dubzland.com:dubzland/dotfiles.git $HOME/.dotfiles
+$HOME/.dotfiles/install core dev i3 nvim 
 ```
 
 ## Modules
