@@ -1,12 +1,33 @@
 [submodule "core/.local/share/vim/plugged/vim-plug"]
 	path = core/.local/share/vim/plugged/vim-plug
 	url = https://github.com/junegunn/vim-plug
-[submodule "i3/.local/share/base16-xresources"]
-	path = i3/.local/share/base16-xresources
-	url = https://github.com/tinted-theming/base16-xresources
-[submodule "core/.local/share/base16-shell"]
-	path = core/.local/share/base16-shell
+[submodule "core/.config/tinted-theming/base16-shell"]
+	path = core/.config/tinted-theming/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
-[submodule "core/.local/share/base16-alacritty"]
-	path = core/.local/share/base16-alacritty
+[submodule "core/.config/tinted-theming/base16-alacritty"]
+	path = core/.config/tinted-theming/base16-alacritty
 	url = https://github.com/aarowill/base16-alacritty
+[submodule "core/.config/tinted-theming/base16-fzf"]
+	path = core/.config/tinted-theming/base16-fzf
+	url = https://github.com/tinted-theming/base16-fzf
+[submodule "core/.config/tinted-theming/base16-tmux"]
+	path = core/.config/tinted-theming/base16-tmux
+	url = https://github.com/tinted-theming/base16-tmux
+[submodule "i3/.config/tinted-theming/base16-i3"]
+	path = i3/.config/tinted-theming/base16-i3
+	url = https://github.com/tinted-theming/base16-i3
+[submodule "i3/.config/tinted-theming/base16-xresources"]
+	path = i3/.config/tinted-theming/base16-xresources
+	url = https://github.com/tinted-theming/base16-xresources
+[submodule "i3/.config/tinted-theming/base16-rofi"]
+	path = i3/.config/tinted-theming/base16-rofi
+	url = https://github.com/tinted-theming/base16-rofi
+[submodule "core/.config/tmux/plugins/base16-tmux"]
+	path = core/.config/tmux/plugins/base16-tmux
+	url = https://github.com/tinted-theming/base16-tmux
+[submodule "core/.config/base16-shell"]
+	path = core/.config/base16-shell
+	url = https://github.com/tinted-theming/base16-shell
+[submodule "i3/.config/tinted-theming/base16-dunst"]
+	path = i3/.config/tinted-theming/base16-dunst
+	url = https://github.com/tinted-theming/base16-dunst
