@@ -22,9 +22,6 @@
 [submodule "i3/.config/tinted-theming/base16-rofi"]
 	path = i3/.config/tinted-theming/base16-rofi
 	url = https://github.com/tinted-theming/base16-rofi
-[submodule "core/.config/tmux/plugins/base16-tmux"]
-	path = core/.config/tmux/plugins/base16-tmux
-	url = https://github.com/tinted-theming/base16-tmux
 [submodule "core/.config/base16-shell"]
 	path = core/.config/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
