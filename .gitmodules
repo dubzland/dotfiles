@@ -13,3 +13,6 @@
 [submodule "core"]
 	path = core
 	url = git@git.dubzland.com:dubzland/dotfiles.core.git
+[submodule "dev"]
+	path = dev
+	url = git@git.dubzland.com:dubzland/dotfiles.dev.git
