@@ -1,18 +1,9 @@
-[submodule "i3/.config/tinted-theming/base16-dunst"]
-	path = i3/.config/tinted-theming/base16-dunst
-	url = https://github.com/tinted-theming/base16-dunst
-[submodule "i3/.config/tinted-theming/base16-i3"]
-	path = i3/.config/tinted-theming/base16-i3
-	url = https://github.com/tinted-theming/base16-i3
-[submodule "i3/.config/tinted-theming/base16-rofi"]
-	path = i3/.config/tinted-theming/base16-rofi
-	url = https://github.com/tinted-theming/base16-rofi
-[submodule "i3/.config/tinted-theming/base16-xresources"]
-	path = i3/.config/tinted-theming/base16-xresources
-	url = https://github.com/tinted-theming/base16-xresources
 [submodule "core"]
 	path = core
 	url = git@git.dubzland.com:dubzland/dotfiles.core.git
 [submodule "dev"]
 	path = dev
 	url = git@git.dubzland.com:dubzland/dotfiles.dev.git
+[submodule "i3"]
+	path = i3
+	url = git@git.dubzland.com:dubzland/dotfiles.i3.git
