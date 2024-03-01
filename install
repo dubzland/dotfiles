@@ -22,5 +22,11 @@ for a in "$@"; do
 done
 
 for module in "${INSTALL_MODULES[@]}"; do
+	# Ensure the submodule is initialized
+	pushd "$DOTFILES_DIR"
+	git submodule update --init "$module"
+	popd
+
+	# Run the modules install script
 	${AVAILABLE_MODULES[$module]}/install
 done

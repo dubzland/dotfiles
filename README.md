@@ -7,8 +7,8 @@ My personal dotfiles.  Highly opinionated.  Totally awesome.
 
 Primary workstation is a Core-i9 running Gentoo Linux, with the [i3][i3] window
 manager running xterm (yes, [xterm][xterm]). On MacOS, [alacritty][alacritty]
-replaces xterm.  Colorscheme is synchronized across bash, alacritty, i3, xterm
-and vim/neovim by [base16][base16] themes.
+replaces xterm.  Colorscheme is synchronized across all modules via
+[base16][base16] themes.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ and vim/neovim by [base16][base16] themes.
 For a full installation, just clone the directory and use the `install` script:
 
 ```bash
-git clone --recurse-submodules git@git.dubzland.com:dubzland/dotfiles.git $HOME/.dotfiles
+git clone git@git.dubzland.com:dubzland/dotfiles.git $HOME/.dotfiles
 $HOME/.dotfiles/install core dev i3 nvim 
 ```
 
@@ -30,16 +30,16 @@ This repository is broken down into 4 modules (core, i3, nvim, and dev). Each
 provides a different subset of functionality, and not all are needed in every
 environment.
 
-| Module                 | Description                                                            |
-| ---------------------- | ---------------------------------------------------------------------- |
-| [core](core/README.md) | Base functionality. Bash, tmux, and alacritty are all configured here. |
-| [dev](dev/README.md)   | Shell and tool configuration for various development environments.     |
-| [i3](i3/README.md)     | Configuration and associated scripts for the i3 window manager.        |
-| [nvim](nvim/README.md) | Neovim configuration suitable for either general purpose work, or dev. |
+| Module              | Description                                                            |
+| ------------------- | ---------------------------------------------------------------------- |
+| [core][core-module] | Base functionality. Bash, tmux, and alacritty are all configured here. |
+| [dev][dev-module]   | Shell and tool configuration for various development environments.     |
+| [i3][i3-module]     | Configuration and associated scripts for the i3 window manager.        |
+| [nvim][nvim-module] | Neovim configuration suitable for either general purpose work, or dev. |
 
 ## License
 
-[MIT](LICENSE)
+[MIT][license-file]
 
 [i3]: https://i3wm.org/
 [neovim]: https://neovim.io/
@@ -47,3 +47,8 @@ environment.
 [base16]: https://github.com/tinted-theming
 [alacritty]: https://alacritty.org/
 [alacritty-install]: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
+[core-module]: https://git.dubzland.com/dubzland/dotfiles.core
+[dev-module]: https://git.dubzland.com/dubzland/dotfiles.dev
+[i3-module]: https://git.dubzland.com/dubzland/dotfiles.i3
+[nvim-module]: https://git.dubzland.com/dubzland/dotfiles.nvim
+[license-file]: LICENSE
