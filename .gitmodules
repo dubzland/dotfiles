@@ -1,18 +1,3 @@
-[submodule "core/.local/share/vim/plugged/vim-plug"]
-	path = core/.local/share/vim/plugged/vim-plug
-	url = https://github.com/junegunn/vim-plug
-[submodule "core/.config/base16-shell"]
-	path = core/.config/base16-shell
-	url = https://github.com/tinted-theming/base16-shell
-[submodule "core/.config/tinted-theming/base16-alacritty"]
-	path = core/.config/tinted-theming/base16-alacritty
-	url = https://github.com/aarowill/base16-alacritty
-[submodule "core/.config/tinted-theming/base16-fzf"]
-	path = core/.config/tinted-theming/base16-fzf
-	url = https://github.com/tinted-theming/base16-fzf
-[submodule "core/.config/tinted-theming/base16-tmux"]
-	path = core/.config/tinted-theming/base16-tmux
-	url = https://github.com/tinted-theming/base16-tmux
 [submodule "i3/.config/tinted-theming/base16-dunst"]
 	path = i3/.config/tinted-theming/base16-dunst
 	url = https://github.com/tinted-theming/base16-dunst
@@ -25,3 +10,6 @@
 [submodule "i3/.config/tinted-theming/base16-xresources"]
 	path = i3/.config/tinted-theming/base16-xresources
 	url = https://github.com/tinted-theming/base16-xresources
+[submodule "core"]
+	path = core
+	url = git@git.dubzland.com:dubzland/dotfiles.core.git
