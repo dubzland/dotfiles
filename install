@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+MODULES_DIR="${DOTFILES_DIR}/modules"
 
 declare -A AVAILABLE_MODULES
 AVAILABLE_MODULES=()
@@ -8,7 +9,7 @@ AVAILABLE_MODULES=()
 declare -a INSTALL_MODULES
 INSTALL_MODULES=()
 
-for d in $DOTFILES_DIR/*/; do
+for d in $MODULES_DIR/*/; do
 	AVAILABLE_MODULES[$(basename "${d}")]="$d"
 done
 
@@ -23,7 +24,7 @@ done
 
 for module in "${INSTALL_MODULES[@]}"; do
 	# Ensure the submodule is initialized
-	pushd "$DOTFILES_DIR"
+	pushd "$MODULES_DIR"
 	git submodule update --init "$module"
 	popd
 
