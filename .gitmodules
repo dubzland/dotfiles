@@ -13,3 +13,6 @@
 [submodule "modules/alacritty"]
 	path = modules/alacritty
 	url = git@git.dubzland.com:dubzland/dotfiles.alacritty.git
+[submodule "modules/colors"]
+	path = modules/colors
+	url = git@git.dubzland.com:dubzland/dotfiles.colors.git

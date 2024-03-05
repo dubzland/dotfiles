@@ -4,9 +4,9 @@ progname=$(basename "$0")
 
 dotfiles_dir="$(realpath "${dotfiles_dir:-${BASH_SOURCE[0]%/*}}")"
 modules_dir="${modules_dir:-${dotfiles_dir}/modules}"
-hosts_dir="${hosts_dir:-${dotfiles_dir}/hosts}"
+flavors_dir="${flavors_dir:-${dotfiles_dir}/flavors}"
 target_dir="${TARGET_DIR:-$HOME}"
-install_host=""
+install_flavor=""
 action=""
 verbose=0
 
@@ -32,7 +32,7 @@ usage() {
 	printf "  %s uninstall   Uninstall dotfiles\n" "$PROGNAME"
 	printf "\n"
 	printf "Global options:\n"
-	printf "  -H <hostname>   Host being installed\n"
+	printf "  -f <flavor>     Flavor to install\n"
 	printf "  -h              Display this help\n"
 	printf "  -t <dir>        Target directory (defaults to \$HOME)\n"
 	printf "  -v              Enable verbose output\n"
@@ -40,14 +40,14 @@ usage() {
 }
 
 process_args() {
-	while getopts ":H:t:hv" opt; do
+	while getopts ":f:t:hv" opt; do
 		case $opt in 
 			h)
 				usage
 				exit 0
 				;;
-			H)
-				install_host="${OPTARG}"
+			f)
+				install_flavor="${OPTARG}"
 				;;
 			v)
 				verbose=$((verbose+1))
@@ -76,43 +76,37 @@ process_args() {
 	action="$1"; shift
 }
 
-initialize_host() {
-	if [[ -n "$install_host" ]]; then
-		if [[ ! -d "${hosts_dir}/${install_host}" ]]; then
-			die 1 "Configuration not found for host $install_host"
+initialize_flavor() {
+	if [[ -n "$install_flavor" ]]; then
+		if [[ ! -d "${flavors_dir}/${install_flavor}" ]]; then
+			die 1 "Flavor $install_flavor not found."
 		fi
 	else
-		host="$(hostname -f)"
-		log "Target host not provided.  Checking ${host}...\n"
-		if [[ -d "${hosts_dir}/${host}" ]]; then
-			log "Detected target host ${host}.\n"
-			install_host="$host"
+		flavor="$(hostname -f)"
+		log "Flavor not provided.  Checking ${flavor}...\n"
+		if [[ -d "${flavors_dir}/${flavor}" ]]; then
+			log "Detected flavor ${flavor}.\n"
+			install_flavor="$flavor"
 		else
-			host="$(hostname -s)"
-			log "Not found.  Checking ${host}...\n"
-			if [[ -d "${hosts_dir}/${host}" ]]; then
-				log "Detected target host ${host}.\n"
-				install_host="$(hostname -s)"
+			flavor="$(hostname -s)"
+			log "Not found.  Checking ${flavor}...\n"
+			if [[ -d "${flavors_dir}/${flavor}" ]]; then
+				log "Detected flavor ${flavor}.\n"
+				install_flavor="$flavor"
 			fi
 		fi
 	fi
 
-	if [[ -z "$install_host" ]]; then
-		die 1 "Unable to determine configuration host."
+	if [[ -z "$install_flavor" ]]; then
+		die 1 "Unable to determine flavor."
 	fi
 
-	host_dir="${hosts_dir}/${install_host}"
-	if [[ -r "${host_dir}/.dotfiles" ]]; then
-		log "Performing host initialization...\n"
-		source "${host_dir}/.dotfiles"
-		log "Host initialization complete.\n"
+	flavor_dir="${flavors_dir}/${install_flavor}"
+	if [[ -r "${flavor_dir}/.dotfiles" ]]; then
+		log "Performing flavor initialization...\n"
+		source "${flavor_dir}/.dotfiles"
+		log "Flavor initialization complete.\n"
 	fi
-}
-
-install_host_module() {
-	local module="$1"
-
-	local host_module_dir="$hosts_dir/$install_host/$module"
 }
 
 module() {
@@ -136,9 +130,9 @@ process_action() {
 				cd "$modules_dir"
 				git  submodule update --init --recursive "$module"
 				stow --no-folding -t $target_dir -R "$module"
-				if [[ -d "${hosts_dir}/${host}/$module" ]]; then
-					log "Adding host customizations ...\n"
-					cd "${hosts_dir}/${host}"
+				if [[ -d "${flavors_dir}/${flavor}/$module" ]]; then
+					log "Adding flavor customizations ...\n"
+					cd "${flavors_dir}/${flavor}"
 					git submodule update --init --recursive "$module"
 					stow --no-folding -t $target_dir "$module"
 					cd ~-
@@ -155,9 +149,9 @@ process_action() {
 
 				log "Uninstalling module: $module...\n"
 				cd "$modules_dir"
-				if [[ -d "${hosts_dir}/${host}/$module" ]]; then
-					log "Removing host customizations ...\n"
-					cd "${hosts_dir}/${host}"
+				if [[ -d "${flavors_dir}/${flavor}/$module" ]]; then
+					log "Removing flavor customizations ...\n"
+					cd "${flavors_dir}/${flavor}"
 					git submodule deinit "$module"
 					stow -t $target_dir -D "$module"
 					cd ~-
@@ -165,8 +159,6 @@ process_action() {
 				stow -t $target_dir -D "$module"
 				git submodule deinit "$module"
 				cd ~-
-
-				install_host_module "$module"
 			done
 			;;
 		*)
@@ -183,5 +175,5 @@ if [[ $# -eq 0 ]]; then
 fi
 
 process_args "$@"
-initialize_host
+initialize_flavor
 process_action
