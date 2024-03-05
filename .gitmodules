@@ -10,3 +10,6 @@
 [submodule "nvim"]
 	path = modules/nvim
 	url = git@git.dubzland.com:dubzland/dotfiles.nvim.git
+[submodule "modules/alacritty"]
+	path = modules/alacritty
+	url = git@git.dubzland.com:dubzland/dotfiles.alacritty.git
