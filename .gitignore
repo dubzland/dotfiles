@@ -1,5 +1,6 @@
 *.un~
 .prime_install.log
+.flavor
 core/.vim/.netrwhist
 core/.local/share/vim/site/**/*
 core/.local/share/vim/undodir/**/*

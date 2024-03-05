@@ -77,33 +77,62 @@ process_args() {
 }
 
 initialize_flavor() {
+	flavor_spec_file="${dotfiles_dir}/.flavor"
+
+
 	if [[ -n "$install_flavor" ]]; then
+		log "Flavor [$install_flavor] specified on the command line.\n"
 		if [[ ! -d "${flavors_dir}/${install_flavor}" ]]; then
 			die 1 "Flavor $install_flavor not found."
 		fi
-	else
-		flavor="$(hostname -f)"
-		log "Flavor not provided.  Checking ${flavor}...\n"
-		if [[ -d "${flavors_dir}/${flavor}" ]]; then
-			log "Detected flavor ${flavor}.\n"
-			install_flavor="$flavor"
-		else
-			flavor="$(hostname -s)"
-			log "Not found.  Checking ${flavor}...\n"
-			if [[ -d "${flavors_dir}/${flavor}" ]]; then
-				log "Detected flavor ${flavor}.\n"
-				install_flavor="$flavor"
+	fi
+
+	if [[ -z "$install_flavor" ]]; then
+		if [[ -r "$flavor_spec_file" ]]; then
+			read -r install_flavor<$flavor_spec_file
+			log "Found flavor \"$install_flavor\" in '${flavor_spec_file}'.\n"
+			if [[ ! -d "${flavors_dir}/${install_flavor}" ]]; then
+				die 1 "Flavor \"$install_flavor\" not found."
 			fi
 		fi
 	fi
 
 	if [[ -z "$install_flavor" ]]; then
-		die 1 "Unable to determine flavor."
+		log "Flavor not provided.  Performing detection...\n"
 	fi
+
+	# If flavor wasn't specified, try to find by host
+	if [[ -z "$install_flavor" ]]; then
+		flavor="$(hostname -f)"
+		if [[ -d "${flavors_dir}/${flavor}" ]]; then
+			log "Auto-detected flavor: \"$flavor\".\n"
+			install_flavor="$flavor"
+		else
+			flavor="$(hostname -s)"
+			if [[ -d "${flavors_dir}/${flavor}" ]]; then
+				log "Auto-detected flavor: \"$flavor\".\n"
+				install_flavor="$flavor"
+			fi
+		fi
+	fi
+
+	# If no host specific flavor, try to find based on OS
+	if [[ -z "$install_flavor" ]]; then
+		if [[ "$OSTYPE" == "darwin"* ]]; then
+			install_flavor="macbook"
+			log "Auto-detected flavor: \"$install_flavor\".\n"
+		fi
+	fi
+
+	# If still no flavor, just bail
+	[[ -z "$install_flavor" ]] && die 1 "Unable to determine flavor."
+
+	# We have a flavor.  Save it to the .flavor file for future use
+	echo "${install_flavor}" > $flavor_spec_file
 
 	flavor_dir="${flavors_dir}/${install_flavor}"
 	if [[ -r "${flavor_dir}/.dotfiles" ]]; then
-		log "Performing flavor initialization...\n"
+		log "Initializing flavor \"$install_flavor\" ...\n"
 		source "${flavor_dir}/.dotfiles"
 		log "Flavor initialization complete.\n"
 	fi
