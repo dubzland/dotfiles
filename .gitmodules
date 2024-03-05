@@ -1,13 +1,13 @@
-[submodule "core"]
+[submodule "modules/core"]
 	path = modules/core
 	url = git@git.dubzland.com:dubzland/dotfiles.core.git
-[submodule "dev"]
+[submodule "modules/dev"]
 	path = modules/dev
 	url = git@git.dubzland.com:dubzland/dotfiles.dev.git
-[submodule "i3"]
+[submodule "modules/i3"]
 	path = modules/i3
 	url = git@git.dubzland.com:dubzland/dotfiles.i3.git
-[submodule "nvim"]
+[submodule "modules/nvim"]
 	path = modules/nvim
 	url = git@git.dubzland.com:dubzland/dotfiles.nvim.git
 [submodule "modules/alacritty"]
