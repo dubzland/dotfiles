@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 module core
+module colors
 module alacritty
 module dev
 module nvim
