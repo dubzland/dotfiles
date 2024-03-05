@@ -1,0 +1,187 @@
+#!/usr/bin/env bash
+
+progname=$(basename "$0")
+
+dotfiles_dir="$(realpath "${dotfiles_dir:-${BASH_SOURCE[0]%/*}}")"
+modules_dir="${modules_dir:-${dotfiles_dir}/modules}"
+hosts_dir="${hosts_dir:-${dotfiles_dir}/hosts}"
+target_dir="${TARGET_DIR:-$HOME}"
+install_host=""
+action=""
+verbose=0
+
+declare -a modules
+modules=()
+
+die() {
+	rc=$1
+	shift
+	printf "$@\n" >&2
+	exit $rc
+}
+
+log() {
+	if [[ $verbose -gt 0 ]]; then
+		printf "$@"
+	fi
+}
+
+usage() {
+	printf "Commands:\n"
+	printf "  %s install     Install dotfiles\n" "$PROGNAME"
+	printf "  %s uninstall   Uninstall dotfiles\n" "$PROGNAME"
+	printf "\n"
+	printf "Global options:\n"
+	printf "  -H <hostname>   Host being installed\n"
+	printf "  -h              Display this help\n"
+	printf "  -t <dir>        Target directory (defaults to \$HOME)\n"
+	printf "  -v              Enable verbose output\n"
+	printf "\n"
+}
+
+process_args() {
+	while getopts ":H:t:hv" opt; do
+		case $opt in 
+			h)
+				usage
+				exit 0
+				;;
+			H)
+				install_host="${OPTARG}"
+				;;
+			v)
+				verbose=$((verbose+1))
+				;;
+			t)
+				target_dir="${OPTARG}"
+				;;
+			:)
+				die 2 "Option -${OPTARG} requires an argument."
+				;;
+			?)
+				die 2 "Invalid option: -${OPTARG}."
+				;;
+		esac
+	done
+
+	shift $((OPTIND-1))
+
+	# Ensure we have a subcommand to process before proceeding
+	if [[ $# -eq 0 ]]; then
+		printf "A subcommand is required.\n"
+		usage
+		exit 2
+	fi
+
+	action="$1"; shift
+}
+
+initialize_host() {
+	if [[ -n "$install_host" ]]; then
+		if [[ ! -d "${hosts_dir}/${install_host}" ]]; then
+			die 1 "Configuration not found for host $install_host"
+		fi
+	else
+		host="$(hostname -f)"
+		log "Target host not provided.  Checking ${host}...\n"
+		if [[ -d "${hosts_dir}/${host}" ]]; then
+			log "Detected target host ${host}.\n"
+			install_host="$host"
+		else
+			host="$(hostname -s)"
+			log "Not found.  Checking ${host}...\n"
+			if [[ -d "${hosts_dir}/${host}" ]]; then
+				log "Detected target host ${host}.\n"
+				install_host="$(hostname -s)"
+			fi
+		fi
+	fi
+
+	if [[ -z "$install_host" ]]; then
+		die 1 "Unable to determine configuration host."
+	fi
+
+	host_dir="${hosts_dir}/${install_host}"
+	if [[ -r "${host_dir}/.dotfiles" ]]; then
+		log "Performing host initialization...\n"
+		source "${host_dir}/.dotfiles"
+		log "Host initialization complete.\n"
+	fi
+}
+
+install_host_module() {
+	local module="$1"
+
+	local host_module_dir="$hosts_dir/$install_host/$module"
+}
+
+module() {
+	local module="$1"
+	log "Adding module: $module\n"
+	modules+=($module)
+}
+
+process_action() {
+	case "$action" in
+		install)
+			log "\n== Performing install. ==\n\n"
+			for module in "${modules[@]}"; do
+				local module_dir="$modules_dir/$module"
+
+				log "module_dir: $module_dir\n"
+
+				[[ -d "$module_dir" ]] || die 1 "Invalid module: $module"
+
+				log "Installing module: $module...\n"
+				cd "$modules_dir"
+				git  submodule update --init --recursive "$module"
+				stow --no-folding -t $target_dir -R "$module"
+				if [[ -d "${hosts_dir}/${host}/$module" ]]; then
+					log "Adding host customizations ...\n"
+					cd "${hosts_dir}/${host}"
+					git submodule update --init --recursive "$module"
+					stow --no-folding -t $target_dir "$module"
+					cd ~-
+				fi
+				cd ~-
+			done
+			;;
+		uninstall)
+			log "\n== Performing uninstall. ==\n\n"
+			for module in "${modules[@]}"; do
+				local module_dir="$modules_dir/$module"
+
+				[[ -d "$module_dir" ]] || die 1 "Invalid module: $module"
+
+				log "Uninstalling module: $module...\n"
+				cd "$modules_dir"
+				if [[ -d "${hosts_dir}/${host}/$module" ]]; then
+					log "Removing host customizations ...\n"
+					cd "${hosts_dir}/${host}"
+					git submodule deinit "$module"
+					stow -t $target_dir -D "$module"
+					cd ~-
+				fi
+				stow -t $target_dir -D "$module"
+				git submodule deinit "$module"
+				cd ~-
+
+				install_host_module "$module"
+			done
+			;;
+		*)
+			printf "Invalid subcommand: %s\n" "$subcommand"
+			usage
+			exit 1
+			;;
+	esac
+}
+
+if [[ $# -eq 0 ]]; then
+	usage
+	exit 2
+fi
+
+process_args "$@"
+initialize_host
+process_action

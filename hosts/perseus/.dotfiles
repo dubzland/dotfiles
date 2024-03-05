@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+module core
+module dev
+module i3
+module nvim
