@@ -159,9 +159,9 @@ process_action() {
 				cd "$modules_dir"
 				git  submodule update --init --recursive "$module"
 				stow --no-folding -t $target_dir -R "$module"
-				if [[ -d "${flavors_dir}/${flavor}/$module" ]]; then
+				if [[ -d "${flavors_dir}/${install_flavor}/$module" ]]; then
 					log "Adding flavor customizations ...\n"
-					cd "${flavors_dir}/${flavor}"
+					cd "${flavors_dir}/${install_flavor}"
 					git submodule update --init --recursive "$module"
 					stow --no-folding -t $target_dir "$module"
 					cd ~-
@@ -178,9 +178,9 @@ process_action() {
 
 				log "Uninstalling module: $module...\n"
 				cd "$modules_dir"
-				if [[ -d "${flavors_dir}/${flavor}/$module" ]]; then
+				if [[ -d "${flavors_dir}/${install_flavor}/$module" ]]; then
 					log "Removing flavor customizations ...\n"
-					cd "${flavors_dir}/${flavor}"
+					cd "${flavors_dir}/${install_flavor}"
 					git submodule deinit "$module"
 					stow -t $target_dir -D "$module"
 					cd ~-
