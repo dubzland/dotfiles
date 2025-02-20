@@ -23,8 +23,9 @@ fi
 # Set X screen saver arguments
 # s noblank - do not blank screen when triggering screen saver
 # s 300 - trigger screen saver after 5 minutes
-# dpms 1200 1800 3600 - Monitor control timeouts (standby, suspend, off)
-xset s noblank s 300 dpms 1200 1800 3600
+# dpms 0 0 0 - Monitor control timeouts (standby, suspend, off)
+# The above dpms settings completely disable dpms (monitor never turns off)
+xset s noblank s 300 dpms 0 0 0
 
 # Generate the i3 configuration file
 i3-merge-config >/dev/null
